@@ -1,0 +1,50 @@
+---
+title: "T-Test"
+author: "Othmane Jadi"
+date: "9/13/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Documents/Junior Year/BIO 490S/Lab 2/")
+```
+
+## Importing Dataset
+
+```{r}
+election <- read.csv("2008to2016PresElections.csv", header = TRUE, sep =",", dec="."
+)
+```
+
+
+## Creating Subsets
+
+```{r}
+diff_2012 <- abs(election$Obama.2012-election$Romney.2012)
+diff_2016 <- abs(election$Clinton.2016-election$Trump.2016)
+```
+
+
+## Hypothesis
+
+I predict that due to increased political polarization following President Obama's two terms in office, there is a significant increase in the difference between voting outcome for each candidate per district in the 2016 election compared to the 2012 election.
+
+
+## T-Test
+
+```{r}
+t.test(diff_2012,diff_2016,var.equal = TRUE, alternative="less")
+```
+
+The t-test shows a significant difference  between the difference of voting outcome for the political candidates in the 2012 election compared to the 2016 election (p = 0.04483).
+
+
+## Visualization
+```{r}
+results_names <- c("2012","2016")
+boxplot(diff_2012,diff_2016, names=results_names, main="Political Polarization in 2012 vs. 2016", xlab="Difference in Candidate Voting Outcome", horizontal=TRUE)
+```
+
+
+
